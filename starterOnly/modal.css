@@ -18,6 +18,7 @@ body {
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
+  min-width: 390px;
   margin: 0 auto;
 }
 
@@ -420,7 +421,9 @@ input[data-error]::after {
   color: #fff;
   position: relative;
   text-align: left;
-  min-width: 424px;
+  /* min-width: 468px; */
+  width: calc(118% - 20px - 20px);
+  /* min-width: 300px; */
 }
 .hero-content::after {
   content: "";
@@ -440,6 +443,7 @@ input[data-error]::after {
   font-weight: normal;
   white-space: nowrap;
 }
+
 .hero-text {
   width: 146%;
   font-weight: normal;
@@ -496,10 +500,11 @@ footer {
   }
   .hero-headline {
     font-size: 4.5rem;
+    width: calc(100% - 20px - 30px);
     white-space: normal;
   }
   .hero-text {
-    width: unset;
+    width: calc(100% - 30px - 38px);
     font-size: 1.5rem;
   }
   .hero-img img {
@@ -516,7 +521,13 @@ footer {
     text-align: center;
   }
 }
-
+@media screen and (min-width: 800px) and (max-width: 990px){
+  .hero-headline {
+    width: 450%;
+    white-space: normal;
+    /* white-space: nowrap; */
+  }
+}
 @keyframes modalopen {
   from {
     opacity: 0;
