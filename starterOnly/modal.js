@@ -258,7 +258,8 @@ let val1 = localStorage.getItem('cityChecked');
 
   for (let i = 0; i < valCityChecked.length; i++) {
     if (valCityChecked[i].value == val1) {
-      valCityChecked[i].checked = true;
+      // valCityChecked[i].checked = true;
+      valCityOk = true;
     }
   }
 
@@ -336,26 +337,28 @@ function checkCondition1(e){
   // validation form
   let isFormValid = firstNameOk && lastNameOk && emailOk && birdthDateOk && valCityOk && valOption1ok;
 
-// function disableSubmit(disabled) {
-//   const buttonSubmit = document.getElementById('btn-submit');
-//   if (disabled) {
-//     buttonSubmit.setAttribute("disabled", true);
-//   } else {
-//     buttonSubmit.removeAttribute("disabled");
-//   }
-// }
+function disableSubmit(disabled) {
+  const buttonSubmit = document.getElementById('btn-submit');
+  if (disabled) {
+    buttonSubmit.setAttribute("disabled", true);
+  } else {
+    buttonSubmit.removeAttribute("disabled");
+  }
+  e.preventDefault();
+}
 
-// form.addEventListener("submit", (e) => {
-// // form.onload = (e) => {
-//   // console.log(e, isFormValid);
-//   if(isFormValid){
-//     alert("formulaire sauvegardé");
-//     disableSubmit(false);
-//   } else {
-//     disableSubmit(true);
-//     e.preventDefault();
-//   }
-// })
+form.addEventListener("submit", (e) => {
+// form.onload = (e) => {
+  // console.log(e, isFormValid);
+  if(isFormValid){
+    alert("formulaire sauvegardé");
+    disableSubmit(false);
+  } else {
+    alert("formulaire erroné");
+    disableSubmit(true);
+  }
+  e.preventDefault();
+})
 
 
 const buttonSubmit = document.getElementById('btn-submit');
@@ -368,16 +371,16 @@ buttonSubmit.addEventListener('click', formValidation);
   checkEmail();
   checkBirdthDate();
   checkQuantity();
-  checkValCity(locationT[i].value);
-  checkCondition1(checkboxVal1.value);
+  checkValCity();
+  checkCondition1();
 
   if(isFormValid){
     alert("le formulaire est valide");
     
     modalbg.style.display = "none";
     form.submit();
-    form.reset();
-    sessionStorage.clear();
+    // form.reset();
+    // sessionStorage.clear();
 
   } else {
     alert("le formulaire est incomplet, veuillez le remplir");
