@@ -302,7 +302,7 @@ let valOption2ok = false;
 checkboxVal1.onchange = function(e){
   if(checkboxVal1.checked){
     valOption1ok = true;
-    alert("conditions sont cochées");
+    alert("condition 1 est cochée");
     errorCheckbox.innerText = "";
   } else {
     errorCheckbox.innerText = "Veuillez valider les conditions d'utilisation";
@@ -316,7 +316,7 @@ checkboxVal1.onchange = function(e){
 checkboxVal2.onchange = function(e){
   if(checkboxVal2.checked){
     valOption2ok = true;
-    alert("conditions 2 sont cochées");
+    alert("option newsletter activée");
   } 
 }
 
