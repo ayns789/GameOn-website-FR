@@ -223,7 +223,6 @@ function checkQuantity(e){
   
 }
 
-
 ////////////////////////////////////////
 
 let valCityOk = false;
@@ -253,7 +252,6 @@ for(let i = 0;i < locationT.length;i++){
     let valCityChecked = document.querySelector('input[name=location]:checked').value;
     localStorage.setItem("cityChecked", valCityChecked);
 
-    
     return valCity;
   })
 };
@@ -304,25 +302,13 @@ function checkCondition1(e){
 //////////////////////////////////////////
 
   // validation form
-  // let isFormValid = firstNameOk && lastNameOk;
-  // let isFormValid = valFirstName.value && valLastName.value && valEmail.value && valBirdthDate.value && valCity.value && valOption1ok == true;
-  // && valEmail.value && valBirthdate.value && valCity.value && valOption1ok == true;
-
-// let isFormValid = checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && checkCondition1(valOption1ok);
 
 form.addEventListener("submit", (e) => {
-// form.onload = (e) => {
-  // console.log(e, isFormValid);
+
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true ){
-    // firstName.value = valFirstName;
-    // lastName.value = valLastName;
-    // email.value = valEmail;
-    // birthdate.value = valBirthdate;
-    // quantityT.value = valQuantityT;
-    // locationT.value = valCity;
-    // checkboxVal1.value = valOption1ok;
-    // checkboxVal2.value = valOption2ok;
+    
     alert("formulaire sauvegardé");
+    // sessionStorage.clear();
   } else {
     alert("formulaire erroné");
   }
@@ -342,23 +328,16 @@ buttonSubmit.addEventListener('click', formValidation);
   checkQuantity();
   checkValCity();
   checkCondition1();
-alert("valFirstName : " + valFirstName + " , " + "valLastName : " + valLastName + " , " + "valEmail : " + valEmail + " , " +  "valBirthdate : " + valBirthdate  + " , " +  "valQuantityT : " + valQuantityT + " , " + "valCity : " + valCity + " , " + "valOption1ok : " + valOption1ok );
-  // let fNameUser = document.forms["form"]["first"].value;
-  // let lNameUser = document.forms["form"]["last"].value;
-  // let mailUser = document.forms["form"]["email"].value;
-  // let bDateUser = document.forms["form"]["birthdate"].value;
-
+// alert("valFirstName : " + valFirstName + " , " + "valLastName : " + valLastName + " , " + "valEmail : " + valEmail + " , " +  "valBirthdate : " + valBirthdate  + " , " +  "valQuantityT : " + valQuantityT + " , " + "valCity : " + valCity + " , " + "valOption1ok : " + valOption1ok );
+  
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true){
     alert("le formulaire est valide");
     modalbg.style.display = "none";
     form.submit();
-    // form.reset();
-    // sessionStorage.clear();
   } else {
     alert("le formulaire est incomplet, veuillez le remplir ");
-    // e.preventDefault();
   }
-  // e.preventDefault();
+  e.preventDefault();
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
