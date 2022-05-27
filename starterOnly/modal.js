@@ -91,11 +91,7 @@ if (sessionStorage.firstnameSaved) {
 
 function checkFirstName(e){
 
-  if (sessionStorage.firstnameSaved) {
-    valFirstName = e.newValue;
-  } 
-
-  valFirstName = e.target.value;
+  valFirstName = document.forms["form"]["first"].value;
   sessionStorage.setItem("firstnameSaved", valFirstName);
 
   if( valFirstName.length < 2 ){
@@ -109,10 +105,9 @@ function checkFirstName(e){
     } else {
       errorFirstName.innerText = "";
       firstNameOk = true;
-      return valFirstName;
+      return firstNameOk;
     }
-// block form if data are not corrects
-e.preventDefault();
+
 };
 ///////////////////////////////////////////
 
@@ -127,10 +122,8 @@ if (sessionStorage.lastnameSaved) {
 } 
 
 function checkLastName(e){
-  if (sessionStorage.lastnameSaved) {
-    valLastName = e.newValue;
-  } 
-  valLastName = e.target.value;
+ 
+  valLastName = document.forms["form"]["last"].value;
   sessionStorage.setItem("lastnameSaved", valLastName);
 
   if( valLastName.length < 2 ){
@@ -145,10 +138,8 @@ function checkLastName(e){
     } else {
       errorLastName.innerText = "";
       lastNameOk = true;
-      return valLastName;
+      return lastNameOk;
     }
-// block form if data are not corrects
-e.preventDefault();
 };
 
 ///////////////////////////////
@@ -164,10 +155,8 @@ if (sessionStorage.emailSaved) {
 } 
 
 function checkEmail(e){
-  if (sessionStorage.emailSaved) {
-    valEmail = e.newValue;
-  } 
-  valEmail = e.target.value;
+  
+  valEmail = document.forms["form"]["email"].value;
   sessionStorage.setItem("emailSaved", valEmail);
 
     if(valEmail.match(regexMail)){
@@ -180,8 +169,6 @@ function checkEmail(e){
       errorEmail.style.fontSize = "18px";
       emailOk = false;
     }
-// block form if data are not corrects
-e.preventDefault();
 };
 
 ///////////////////////////////////////
@@ -197,10 +184,8 @@ if (sessionStorage.birdthdateSaved) {
 } 
 
 function checkBirdthDate(e){
-  if (sessionStorage.birdthdateSaved) {
-    valBirthdate = e.newValue;
-  } 
-  valBirthdate = e.target.value;
+  
+  valBirthdate = document.forms["form"]["birthdate"].value;
   sessionStorage.setItem("birdthdateSaved", valBirthdate);
 
     if (valBirthdate.match(regexBirthdate)){
@@ -212,8 +197,6 @@ function checkBirdthDate(e){
       errorBirthdate.style.color = "red";
       errorBirthdate.style.fontSize = "18px";
     }
-  // block form if data are not corrects
-  e.preventDefault();
   };
 
 
@@ -222,7 +205,7 @@ function checkBirdthDate(e){
 // check number of tournaments
 quantityT.addEventListener('input', checkQuantity);
 
-let valQuantityT = 0;
+let valQuantityT;
 
 if (sessionStorage.quantityTSaved) {
   quantityT.value = parseInt(sessionStorage.quantityTSaved);
@@ -230,20 +213,14 @@ if (sessionStorage.quantityTSaved) {
 
 function checkQuantity(e){
 
-  if (sessionStorage.quantityTSaved) {
-    valQuantityT = e.newValue;
-  }
-
-  valQuantityT = e.target.value;
+  valQuantityT = document.forms["form"]["quantity"].value;
   sessionStorage.setItem("quantityTSaved", valQuantityT);
 
-  if(val != null){
-    valQuantityT = parseInt(val);
-    return valQuantityT;
+  if(valQuantityT == null){
+    valQuantityT = 0;
   } 
+  return valQuantityT;
   
-  // block form if data are not corrects
-  e.preventDefault();
 }
 
 
@@ -258,7 +235,8 @@ let val1 = localStorage.getItem('cityChecked');
 
   for (let i = 0; i < valCityChecked.length; i++) {
     if (valCityChecked[i].value == val1) {
-      // valCityChecked[i].checked = true;
+      valCityChecked[i].checked = true;
+      valCity = valCityChecked[i].value;
       valCityOk = true;
     }
   }
@@ -275,8 +253,7 @@ for(let i = 0;i < locationT.length;i++){
     let valCityChecked = document.querySelector('input[name=location]:checked').value;
     localStorage.setItem("cityChecked", valCityChecked);
 
-    errorLocation.innerText = "";
-    alert(valCity)
+    
     return valCity;
   })
 };
@@ -285,6 +262,7 @@ for(let i = 0;i < locationT.length;i++){
 function checkValCity(e){
   if(valCityOk){
     errorLocation.innerText = "";
+    // valCity = locationT[i].value;
     return valCity;
   } else {
     errorLocation.innerText = "Vous devez sélectionner une ville";
@@ -298,19 +276,6 @@ function checkValCity(e){
 let valOption1ok = true;
 let valOption2ok = false;
 
-// check checkbox option 1 selected to click
-checkboxVal1.onchange = function(e){
-  if(checkboxVal1.checked){
-    valOption1ok = true;
-    alert("condition 1 est cochée");
-    errorCheckbox.innerText = "";
-  } else {
-    errorCheckbox.innerText = "Veuillez valider les conditions d'utilisation";
-    errorCheckbox.style.color = "red";
-    errorCheckbox.style.fontSize = "18px";
-  }
-}
-
 
 // check checkbox option 2 selected to click
 checkboxVal2.onchange = function(e){
@@ -320,42 +285,46 @@ checkboxVal2.onchange = function(e){
   } 
 }
 
+
+checkboxVal1.addEventListener('click', checkCondition1);
+
 // check if checkox 1 selected to the form validation 
 function checkCondition1(e){
   if(checkboxVal1.checked){
     errorCheckbox.innerText = "";
-    return true;
   } else {
+    valOption1ok = false;
     errorCheckbox.innerText = "Veuillez valider les conditions d'utilisation";
     errorCheckbox.style.color = "red";
     errorCheckbox.style.fontSize = "18px";
+    return valOption1ok;
   }
 }
 
 //////////////////////////////////////////
 
   // validation form
-  let isFormValid = firstNameOk && lastNameOk && emailOk && birdthDateOk && valCityOk && valOption1ok;
+  // let isFormValid = firstNameOk && lastNameOk;
+  // let isFormValid = valFirstName.value && valLastName.value && valEmail.value && valBirdthDate.value && valCity.value && valOption1ok == true;
+  // && valEmail.value && valBirthdate.value && valCity.value && valOption1ok == true;
 
-function disableSubmit(disabled) {
-  const buttonSubmit = document.getElementById('btn-submit');
-  if (disabled) {
-    buttonSubmit.setAttribute("disabled", true);
-  } else {
-    buttonSubmit.removeAttribute("disabled");
-  }
-  e.preventDefault();
-}
+// let isFormValid = checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && checkCondition1(valOption1ok);
 
 form.addEventListener("submit", (e) => {
 // form.onload = (e) => {
   // console.log(e, isFormValid);
-  if(isFormValid){
+  if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true ){
+    // firstName.value = valFirstName;
+    // lastName.value = valLastName;
+    // email.value = valEmail;
+    // birthdate.value = valBirthdate;
+    // quantityT.value = valQuantityT;
+    // locationT.value = valCity;
+    // checkboxVal1.value = valOption1ok;
+    // checkboxVal2.value = valOption2ok;
     alert("formulaire sauvegardé");
-    disableSubmit(false);
   } else {
     alert("formulaire erroné");
-    disableSubmit(true);
   }
   e.preventDefault();
 })
@@ -373,20 +342,23 @@ buttonSubmit.addEventListener('click', formValidation);
   checkQuantity();
   checkValCity();
   checkCondition1();
+alert("valFirstName : " + valFirstName + " , " + "valLastName : " + valLastName + " , " + "valEmail : " + valEmail + " , " +  "valBirthdate : " + valBirthdate  + " , " +  "valQuantityT : " + valQuantityT + " , " + "valCity : " + valCity + " , " + "valOption1ok : " + valOption1ok );
+  // let fNameUser = document.forms["form"]["first"].value;
+  // let lNameUser = document.forms["form"]["last"].value;
+  // let mailUser = document.forms["form"]["email"].value;
+  // let bDateUser = document.forms["form"]["birthdate"].value;
 
-  if(isFormValid){
+  if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true){
     alert("le formulaire est valide");
-    
     modalbg.style.display = "none";
     form.submit();
     // form.reset();
     // sessionStorage.clear();
-
   } else {
-    alert("le formulaire est incomplet, veuillez le remplir");
+    alert("le formulaire est incomplet, veuillez le remplir ");
     // e.preventDefault();
   }
-  e.preventDefault();
+  // e.preventDefault();
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
