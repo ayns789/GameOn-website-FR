@@ -92,6 +92,7 @@ if (sessionStorage.firstnameSaved) {
 function checkFirstName(e){
 
   valFirstName = document.forms["form"]["first"].value;
+  // save firstname in sessionStorage
   sessionStorage.setItem("firstnameSaved", valFirstName);
 
   if( valFirstName.length < 2 ){
@@ -117,6 +118,7 @@ lastName.addEventListener('input', checkLastName);
 let lastNameOk = false;
 let valLastName = "";
 
+// check lastname saved in session storage
 if (sessionStorage.lastnameSaved) {
   lastName.value = sessionStorage.lastnameSaved;
 } 
@@ -124,6 +126,7 @@ if (sessionStorage.lastnameSaved) {
 function checkLastName(e){
  
   valLastName = document.forms["form"]["last"].value;
+  // save lastname in sessionStorage
   sessionStorage.setItem("lastnameSaved", valLastName);
 
   if( valLastName.length < 2 ){
@@ -150,6 +153,7 @@ email.addEventListener('input', checkEmail);
 let emailOk = false;
 let valEmail = "";
 
+// check email saved in session storage
 if (sessionStorage.emailSaved) {
   email.value = sessionStorage.emailSaved;
 } 
@@ -157,6 +161,7 @@ if (sessionStorage.emailSaved) {
 function checkEmail(e){
   
   valEmail = document.forms["form"]["email"].value;
+  // save email in sessionStorage
   sessionStorage.setItem("emailSaved", valEmail);
 
     if(valEmail.match(regexMail)){
@@ -179,6 +184,7 @@ birthdate.addEventListener('change', checkBirdthDate );
 let birdthDateOk = false;
 let valBirthdate = "";
 
+// check birthdate saved in session storage
 if (sessionStorage.birdthdateSaved) {
   birthdate.value = sessionStorage.birdthdateSaved;
 } 
@@ -186,6 +192,7 @@ if (sessionStorage.birdthdateSaved) {
 function checkBirdthDate(e){
   
   valBirthdate = document.forms["form"]["birthdate"].value;
+  // save birthdate in sessionStorage
   sessionStorage.setItem("birdthdateSaved", valBirthdate);
 
     if (valBirthdate.match(regexBirthdate)){
@@ -207,6 +214,7 @@ quantityT.addEventListener('input', checkQuantity);
 
 let valQuantityT;
 
+// check quantity of tournaments saved in session storage
 if (sessionStorage.quantityTSaved) {
   quantityT.value = parseInt(sessionStorage.quantityTSaved);
 } 
@@ -214,6 +222,7 @@ if (sessionStorage.quantityTSaved) {
 function checkQuantity(e){
 
   valQuantityT = document.forms["form"]["quantity"].value;
+  // save quantity of tournaments in sessionStorage
   sessionStorage.setItem("quantityTSaved", valQuantityT);
 
   if(valQuantityT == null){
@@ -260,7 +269,6 @@ for(let i = 0;i < locationT.length;i++){
 function checkValCity(e){
   if(valCityOk){
     errorLocation.innerText = "";
-    // valCity = locationT[i].value;
     return valCity;
   } else {
     errorLocation.innerText = "Vous devez sélectionner une ville";
@@ -303,6 +311,7 @@ function checkCondition1(e){
 
   // validation form
 
+  // send form if conditions are ok
 form.addEventListener("submit", (e) => {
 
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true ){
@@ -320,7 +329,8 @@ const buttonSubmit = document.getElementById('btn-submit');
 buttonSubmit.addEventListener('click', formValidation);
 
   function formValidation(e){
-    
+
+    // check functions for the user can see the errors if they are
   checkFirstName();
   checkLastName();
   checkEmail();
@@ -330,8 +340,9 @@ buttonSubmit.addEventListener('click', formValidation);
   checkCondition1();
 // alert("valFirstName : " + valFirstName + " , " + "valLastName : " + valLastName + " , " + "valEmail : " + valEmail + " , " +  "valBirthdate : " + valBirthdate  + " , " +  "valQuantityT : " + valQuantityT + " , " + "valCity : " + valCity + " , " + "valOption1ok : " + valOption1ok );
   
+// check conditions to call the form submit
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true){
-    alert("le formulaire est valide");
+    // alert("le formulaire est valide");
     modalbg.style.display = "none";
     form.submit();
   } else {
