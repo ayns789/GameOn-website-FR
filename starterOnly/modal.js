@@ -314,13 +314,10 @@ function checkCondition1(e){
   // send form if conditions are ok
 form.addEventListener("submit", (e) => {
 
-  if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true ){
-    
-    alert("formulaire sauvegardé");
+  alert("le formulaire est bien enregistré");
+    modalbg.style.display = "none";
     // sessionStorage.clear();
-  } else {
-    alert("formulaire erroné");
-  }
+  
   e.preventDefault();
 })
 
@@ -342,8 +339,6 @@ buttonSubmit.addEventListener('click', formValidation);
   
 // check conditions to call the form submit
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true){
-    // alert("le formulaire est valide");
-    modalbg.style.display = "none";
     form.submit();
   } else {
     alert("le formulaire est incomplet, veuillez le remplir ");
