@@ -314,7 +314,6 @@ function checkCondition1(e){
   // send form if conditions are ok
 form.addEventListener("submit", (e) => {
 
-  alert("le formulaire est bien enregistré");
     modalbg.style.display = "none";
     // sessionStorage.clear();
   
@@ -339,9 +338,10 @@ buttonSubmit.addEventListener('click', formValidation);
   
 // check conditions to call the form submit
   if(checkFirstName(valFirstName) && checkLastName(valLastName) && checkEmail(valEmail) && checkBirdthDate(valBirthdate) && checkValCity(valCity) && valOption1ok == true){
+    alert("le formulaire est bien enregistré");
     form.submit();
   } else {
-    alert("le formulaire est incomplet, veuillez le remplir ");
+    alert("le formulaire est incomplet, veuillez le remplir");
   }
   e.preventDefault();
   };
